@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  color: #EBA23B;
+  transition: color 0.3s ease;
+}
+
+.swiper-button-next:hover::after,
+.swiper-button-prev:hover::after {
+  color: #c77c17; /* darker orange on hover */
+}
+
+
+/* Reset body margins so your hero image goes edge to edge */
+body, html {
+  margin: 0;
+  padding: 0;
+}

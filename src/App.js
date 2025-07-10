@@ -85,26 +85,43 @@ function AppContent() {
         cartIconRef={cartIconRef}
       />
 
-        <main className="flex-grow p-4">
-          <Suspense fallback={
-            <div className="fixed inset-0 flex items-center justify-center bg-white z-[9999]">
-              <img src={loadingGif} alt="Loading..." className="w-32 h-32 object-contain" />
-            </div>
-          }>
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/products" element={<ProductsPage addToCart={addToCart} />} />
-              <Route path="/cart" element={
-                <CartPage
-                  cartItems={cartItems}
-                  removeFromCart={removeFromCart}
-                  updateQuantity={updateQuantity}
-                  onCartOpened={() => setCartOpened(true)}
-                />
-              } />
-            </Routes>
-          </Suspense>
-        </main>
+        <main className="flex-grow p-4 relative">
+  <Suspense fallback={
+    <div className="fixed inset-0 flex items-center justify-center bg-white z-[9999]">
+      <img src={loadingGif} alt="Loading..." className="w-32 h-32 object-contain" />
+    </div>
+  }>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/products" element={<ProductsPage addToCart={addToCart} />} />
+      <Route
+        path="/cart"
+        element={
+          <CartPage
+            cartItems={cartItems}
+            removeFromCart={removeFromCart}
+            updateQuantity={updateQuantity}
+            onCartOpened={() => setCartOpened(true)}
+          />
+        }
+      />
+    </Routes>
+  </Suspense>
+
+  {/* ✅ This should be OUTSIDE the <Suspense> block */}
+  {flyImage && flyTarget && (
+    <FlyToCartAnimation
+      imageSrc={flyImage}
+      destX={flyTarget.x}
+      destY={flyTarget.y}
+      onAnimationComplete={() => {
+        setFlyImage(null);
+        setFlyTarget(null);
+      }}
+    />
+  )}
+</main>
+
 
 
       <Footer />

@@ -1,0 +1,23 @@
+{
+  "short_name": "PetCare",
+  "name": "Amazon Pet Care - Shop for Your Pets",
+  "icons": [
+    {
+      "src": "icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#f97316",
+  "background_color": "#ffffff",
+  "orientation": "portrait",
+  "description": "A modern pet care store offering high-quality products for cats, dogs, birds and more.",
+  "lang": "en"
+}

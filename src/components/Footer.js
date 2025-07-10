@@ -66,7 +66,7 @@ function Footer() {
           <p className="mt-2">
             <strong>{t("phone_label")}:</strong> {t("phone_num")}
             <br />
-            <strong>{t("email_label")}:</strong> info@example.com
+            <strong>{t("email_label")}:</strong> Amazona.pet.prodects@gmail.com
           </p>
         </div>
       </div>

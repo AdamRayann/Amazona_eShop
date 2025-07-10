@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import products from "../data/products";
 import FeaturedProducts from "../components/FeaturedProducts";
 import HighlightSection from "../components/HighlightSection";
+import { useEffect } from "react";
 
 
 const animals = [
@@ -20,13 +21,13 @@ const animals = [
       "https://images.unsplash.com/photo-1592194996308-7b43878e84a6?auto=format&fit=crop&w=600&q=60",
   },
   {
-    id: "birds",
+    id: "bird",
     titleKey: "birds_products",
     image:
       "https://images.unsplash.com/photo-1480044965905-02098d419e96?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
-    id: "rodents",
+    id: "rodent",
     titleKey: "rodents_products",
     image:
       "https://images.unsplash.com/photo-1676918555382-fcd06a483e25?q=80&w=1171&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -38,6 +39,9 @@ function HomePage() {
   const { t } = useTranslation();
 
   const heroImageUrl = "/myheroimage.png"; // Make sure it's in /public
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }, []);
 
   return (
     <div className="flex flex-col space-y-16 bg-[#EBEBEB]">

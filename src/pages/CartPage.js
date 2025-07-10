@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 
 function CartPage({ cartItems, removeFromCart, updateQuantity, onCartOpened }) {
   const { t } = useTranslation();
   onCartOpened();
-
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }, []);
   const total = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0

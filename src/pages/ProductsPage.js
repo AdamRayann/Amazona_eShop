@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import products from "../data/products";
 import ProductCard from "../components/ProductCard";
+import { useEffect } from "react";
 
 function ProductsPage({ addToCart }) {
   const location = useLocation();
@@ -20,7 +21,9 @@ function ProductsPage({ addToCart }) {
     const matchesCategory = selectedCategory ? product.category === selectedCategory : true;
     return matchesType && matchesCategory;
   });
-
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }, []);
   return (
     <div className="pt-28 px-4 space-y-8 relative">
       {/* Filters */}
@@ -77,38 +80,43 @@ function ProductsPage({ addToCart }) {
             onClick={() => setSelectedProduct(product)}
             className="cursor-pointer"
           >
-            <ProductCard product={product} addToCart={addToCart} />
+            <ProductCard product={product} addToCart={(e) => {
+      e.stopPropagation();          // ✅ stop click from bubbling
+      addToCart(product);           // ✅ add the product to cart
+    }} />
           </motion.div>
         ))}
       </div>
 
-      {/* Modal */}
-      <AnimatePresence>
-        {selectedProduct && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              key="backdrop"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.5 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black z-40"
-              onClick={() => setSelectedProduct(null)}
-            />
+{/* Modal */}
+<AnimatePresence>
+  {selectedProduct && (
+    <>
+      {/* Backdrop */}
+      <motion.div
+        key="backdrop"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.5 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 bg-black z-40"
+        onClick={() => setSelectedProduct(null)}
+      />
 
-            {/* Card */}
-            <motion.div
-              key="modal"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.3 }}
-              className="fixed z-50 inset-0 flex items-center justify-center p-4"
-            >
-              <div
-                className="relative bg-white rounded-lg shadow-lg w-full max-w-4xl p-6 flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6"
-                onClick={(e) => e.stopPropagation()}
-              >
+      {/* Card */}
+      <motion.div
+        key="modal"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.8 }}
+        transition={{ duration: 0.3 }}
+        className="fixed z-50 inset-0 flex items-center justify-center p-4"
+        onClick={() => setSelectedProduct(null)}  
+      >
+        <div
+          className="relative bg-white rounded-lg shadow-lg w-full max-w-4xl p-6 flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-6"
+          onClick={(e) => e.stopPropagation()}  
+        >
+
                 {/* Close Button */}
                 <button
                   onClick={() => setSelectedProduct(null)}

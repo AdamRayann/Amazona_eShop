@@ -44,7 +44,7 @@ function HomePage() {
   }, []);
 
   return (
-    <div className="flex flex-col space-y-16 bg-[#EBEBEB]">
+    <div className="flex flex-col space-y-16 ">
       {/* Hero Image Full Width */}
     <motion.div
       initial={{ opacity: 0, y: -50 }}

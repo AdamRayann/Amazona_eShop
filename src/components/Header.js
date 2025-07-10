@@ -64,7 +64,7 @@ function Header({ cartItems, cartOpened, cartIconRef }) {
           </Link>
           <div className="relative" ref={cartIconRef}>
             <Link to="/cart" className="hover:underline">
-             🛒{t("cart")}
+             {t("cart")}
             </Link>
             {totalItems > 0 && !cartOpened && (
               <span className="absolute -top-2 -right-2 bg-red-500 text-xs rounded-full w-5 h-5 flex items-center justify-center">

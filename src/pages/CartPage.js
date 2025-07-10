@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
+import emptyCartGif from "../assets/images/emptyCartGif.gif";
 
 function CartPage({ cartItems, removeFromCart, updateQuantity, onCartOpened }) {
   const { t } = useTranslation();
@@ -22,10 +23,10 @@ function CartPage({ cartItems, removeFromCart, updateQuantity, onCartOpened }) {
       {cartItems.length === 0 ? (
         <div className="flex flex-col items-center space-y-6">
           <img
-            src="https://www.svgrepo.com/show/276264/empty-cart.svg"
-            alt={t("empty_cart_alt")}
-            className="w-48 h-48 opacity-70"
-          />
+          src={emptyCartGif}
+          alt={t("empty_cart_alt")}
+          className="pt-4 w-64 h-64 object-contain"
+        />
           <p className="text-gray-600 text-lg">
             {t("cart_empty_message")}
           </p>

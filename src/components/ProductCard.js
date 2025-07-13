@@ -11,7 +11,7 @@ function ProductCard({ product, addToCart }) {
       whileTap={{ scale: 0.98 }}
     >
       <motion.img
-        src={product.image}
+        src={product.imageUrl}
         alt={product.name}
         className="mb-2 w-full h-48 object-cover rounded"
         initial={{ opacity: 0 }}

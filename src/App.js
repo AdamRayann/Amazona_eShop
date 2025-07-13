@@ -44,7 +44,8 @@ function AppContent() {
       });
     }
 
-    setFlyImage(product.image);
+    setFlyImage(product.imageUrl || product.image);
+
 
     setCartItems((prevItems) => {
       const itemExists = prevItems.find((item) => item.id === product.id);

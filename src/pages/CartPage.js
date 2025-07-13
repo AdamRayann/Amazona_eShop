@@ -47,7 +47,7 @@ function CartPage({ cartItems, removeFromCart, updateQuantity, onCartOpened }) {
               >
                 <div className="flex items-center space-x-4">
                   <img
-                    src={item.image}
+                    src={item.imageUrl}
                     alt={item.name}
                     className="w-24 h-24 object-cover rounded"
                   />

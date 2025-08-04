@@ -47,7 +47,9 @@
   "filter_all_categories": "כל הקטגוריות",
   "filter_food": "אוכל",
   "filter_cage": "כלוב",
-  "filter_accessory": "אביזר"
+  "filter_accessory": "אביזר",
+  "dry_food" : "אוכל יבש",
+  "wet_food" : "אוכל רטוב"
 
 
 }

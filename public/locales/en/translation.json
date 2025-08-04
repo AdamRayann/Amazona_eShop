@@ -47,7 +47,9 @@
   "filter_all_categories": "All Categories",
   "filter_food": "Food",
   "filter_cage": "Cage",
-  "filter_accessory": "Accessory"
+  "filter_accessory": "Accessory",
+  "dry_food" : "Dry Food",
+  "wet_food" : "Wet Food"
 
 
   

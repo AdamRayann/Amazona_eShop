@@ -4,6 +4,9 @@ import { motion } from "framer-motion";
 function ProductCard({ product, addToCart }) {
   const { t } = useTranslation();
 
+  const showFoodType =
+    product.category === "food" && (product.foodType === "wet" || product.foodType === "dry");
+
   return (
     <motion.div
       className="bg-gray-100 border rounded p-4 shadow hover:shadow-lg hover:bg-gray-200 transition-all duration-300"
@@ -18,8 +21,16 @@ function ProductCard({ product, addToCart }) {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       />
+
       <h3 className="font-semibold text-lg">{product.name}</h3>
       <p className="text-sm text-gray-600">{product.description}</p>
+
+      {showFoodType && (
+        <p className="text-sm mt-1 text-orange-600 font-medium">
+          {product.foodType === "wet" ? t("wet_food") : t("dry_food")}
+        </p>
+      )}
+
       <div className="flex justify-between items-center mt-2">
         <span className="text-orange-400 font-bold">₪{product.price}</span>
         <motion.button

@@ -11,6 +11,7 @@ function AddProduct() {
     price: "",
     type: "",
     category: "",
+    foodType: "", // ✅ Added new field
     image: null,
   });
 
@@ -28,56 +29,57 @@ function AddProduct() {
     }
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setUploading(true); // ✅ Start uploading state
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setUploading(true);
 
-  try {
-    let imageUrl = "";
+    try {
+      let imageUrl = "";
 
-    if (formData.image) {
-      const imageRef = ref(storage, `productImages/${uuidv4()}`);
-      await uploadBytes(imageRef, formData.image);
-      imageUrl = await getDownloadURL(imageRef);
+      if (formData.image) {
+        const imageRef = ref(storage, `productImages/${uuidv4()}`);
+        await uploadBytes(imageRef, formData.image);
+        imageUrl = await getDownloadURL(imageRef);
+      }
+
+      const newProduct = {
+        name: formData.name,
+        description: formData.description,
+        price: parseFloat(formData.price),
+        type: formData.type,
+        category: formData.category,
+        foodType: formData.category === "food" ? formData.foodType : null, // ✅ Only add if food
+        imageUrl,
+        createdAt: new Date(),
+      };
+
+      await addDoc(collection(db, "products"), newProduct);
+
+      alert("Product added successfully!");
+
+      setFormData({
+        name: "",
+        description: "",
+        price: "",
+        type: "",
+        category: "",
+        foodType: "",
+        image: null,
+      });
+      setPreviewUrl(null);
+    } catch (error) {
+      console.error("Error adding product:", error);
+      alert("Failed to add product.");
+    } finally {
+      setUploading(false);
     }
-
-    const newProduct = {
-      name: formData.name,
-      description: formData.description,
-      price: parseFloat(formData.price),
-      type: formData.type,
-      category: formData.category,
-      imageUrl,
-      createdAt: new Date(),
-    };
-
-    await addDoc(collection(db, "products"), newProduct);
-
-    alert("Product added successfully!");
-
-    setFormData({
-      name: "",
-      description: "",
-      price: "",
-      type: "",
-      category: "",
-      image: null,
-    });
-    setPreviewUrl(null);
-  } catch (error) {
-    console.error("Error adding product:", error);
-    alert("Failed to add product.");
-  } finally {
-    setUploading(false); // ✅ End uploading state
-  }
-};
-
+  };
 
   return (
     <div className="max-w-3xl mx-auto bg-orange-300 p-8 shadow-md rounded-lg">
       <h2 className="text-2xl font-bold mb-6 text-gray-800">Add New Product</h2>
       <form onSubmit={handleSubmit} className="space-y-5">
-        {/* Inputs same as before */}
+        {/* Product Name */}
         <div>
           <label className="block text-sm font-medium text-gray-700">Product Name</label>
           <input
@@ -90,6 +92,7 @@ const handleSubmit = async (e) => {
           />
         </div>
 
+        {/* Description */}
         <div>
           <label className="block text-sm font-medium text-gray-700">Description</label>
           <textarea
@@ -102,6 +105,7 @@ const handleSubmit = async (e) => {
           />
         </div>
 
+        {/* Price */}
         <div>
           <label className="block text-sm font-medium text-gray-700">Price (₪)</label>
           <input
@@ -115,6 +119,7 @@ const handleSubmit = async (e) => {
           />
         </div>
 
+        {/* Type */}
         <div>
           <label className="block text-sm font-medium text-gray-700">Type</label>
           <select
@@ -124,7 +129,7 @@ const handleSubmit = async (e) => {
             onChange={handleChange}
             required
           >
-            <option value="">Select bet type</option>
+            <option value="">Select pet type</option>
             <option value="dog">Dog</option>
             <option value="cat">Cat</option>
             <option value="bird">Bird</option>
@@ -132,6 +137,7 @@ const handleSubmit = async (e) => {
           </select>
         </div>
 
+        {/* Category */}
         <div>
           <label className="block text-sm font-medium text-gray-700">Category</label>
           <select
@@ -148,11 +154,27 @@ const handleSubmit = async (e) => {
           </select>
         </div>
 
+        {/* Food Type - Only if category is "food" */}
+        {formData.category === "food" && (
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Food Type</label>
+            <select
+              name="foodType"
+              className="mt-1 w-full border rounded-md px-4 py-2 bg-white focus:ring-orange-400 focus:border-orange-400"
+              value={formData.foodType}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select Food Type</option>
+              <option value="dry">Dry</option>
+              <option value="wet">Wet</option>
+            </select>
+          </div>
+        )}
+
         {/* Image Upload */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Product Image
-          </label>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Product Image</label>
           <input
             type="file"
             name="image"
@@ -160,7 +182,6 @@ const handleSubmit = async (e) => {
             className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:bg-orange-500 file:text-white hover:file:bg-orange-600"
             onChange={handleChange}
           />
-
           {previewUrl && (
             <div className="mt-4 flex flex-col items-start gap-3">
               <img
@@ -182,7 +203,7 @@ const handleSubmit = async (e) => {
           )}
         </div>
 
-        {/* Submit Button */}
+        {/* Submit */}
         <button
           type="submit"
           className={`w-full bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-md font-semibold transition ${

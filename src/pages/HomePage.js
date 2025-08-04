@@ -65,7 +65,11 @@ function HomePage() {
         alt={t('hero_alt')}
         className="w-full object-cover"
       />
-    </motion.div>
+
+      {/* Footprints image positioned to the right */}
+
+</motion.div>
+
 
 
 

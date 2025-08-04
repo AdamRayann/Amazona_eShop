@@ -50,7 +50,17 @@ function FeaturedProducts() {
                 rounded-lg w-[350px] h-[230px] mx-auto shadow-md
                 flex items-center justify-center
               "
-              onClick={() => navigate(`/products?type=${product.type}`)}
+onClick={() =>
+  navigate(
+    `/products?type=${product.type}${
+      ["dog", "cat"].includes(product.type) ? "&category=food" : ""
+    }`
+  )
+}
+
+
+
+
             >
               <img
                 src={product.image}

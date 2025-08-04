@@ -15,6 +15,7 @@ function EditProduct() {
     price: "",
     type: "",
     category: "",
+    foodType: "", // ✅ Added foodType
     image: null,
   });
 
@@ -34,6 +35,7 @@ function EditProduct() {
             price: data.price,
             type: data.type,
             category: data.category,
+            foodType: data.foodType || "", // ✅ Load if exists
             image: null,
           });
           setPreviewUrl(data.imageUrl);
@@ -77,6 +79,7 @@ function EditProduct() {
         price: parseFloat(formData.price),
         type: formData.type,
         category: formData.category,
+        foodType: formData.category === "food" ? formData.foodType : "", // ✅ Save only if category is food
         imageUrl,
       });
 
@@ -166,6 +169,23 @@ function EditProduct() {
             <option value="accessory">Accessory</option>
           </select>
         </div>
+
+        {/* Food Type (only if category is food) */}
+        {formData.category === "food" && (
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Food Type</label>
+            <select
+              name="foodType"
+              value={formData.foodType}
+              onChange={handleChange}
+              className="mt-1 w-full border rounded-md px-4 py-2"
+            >
+              <option value="">Select Food Type</option>
+              <option value="dry">Dry</option>
+              <option value="wet">Wet</option>
+            </select>
+          </div>
+        )}
 
         {/* Image Upload */}
         <div>

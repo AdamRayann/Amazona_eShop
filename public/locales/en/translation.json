@@ -49,7 +49,13 @@
   "filter_cage": "Cage",
   "filter_accessory": "Accessory",
   "dry_food" : "Dry Food",
-  "wet_food" : "Wet Food"
+  "wet_food" : "Wet Food",
+  "send_order_button":"Send Order",
+  "confirm_and_send":"Confirm and Send",
+  "address":"Address",
+  "phone_number":"Phone Number",
+  "cus_name":"Full Name"
+
 
 
   
